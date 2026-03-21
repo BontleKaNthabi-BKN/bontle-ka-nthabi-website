@@ -1,0 +1,20 @@
+BKN Beauty Academy - New Contact Form Submission
+
+==================================================
+SUBJECT: {{subject}}
+==================================================
+
+NAME: {{fullName}}
+
+EMAIL: {{email}}
+
+PHONE: {{phone}}
+
+MESSAGE:
+{{message}}
+
+
+--------------------------------------------------
+Sent from BKN Beauty Academy Contact Form
+This email was automatically generated. Please do not reply directly to this email.
+© 2026 BKN Beauty Academy. All rights reserved.

@@ -1,0 +1,25 @@
+BKN Beauty Academy - New Application Form Submission
+
+==================================================
+COURSE APPLIED FOR: {{courseSelection}}
+==================================================
+
+FIRST NAME: {{firstName}}
+
+LAST NAME: {{lastName}}
+
+EMAIL: {{email}}
+
+PHONE: {{phone}}
+
+DATE OF BIRTH: {{dateOfBirth}}
+
+ADDRESS: {{address}}
+
+SUPPORTING DOCUMENTS: {{supportingDocuments}}
+
+
+--------------------------------------------------
+Sent from BKN Beauty Academy Application Form
+This email was automatically generated. Please do not reply directly to this email.
+© 2026 BKN Beauty Academy. All rights reserved.

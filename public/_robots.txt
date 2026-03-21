@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.beautyacademy.co.za/sitemap.xml
+
+# Block access to private files
+Disallow: /server/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.nuxt/
+Disallow: /dist/
+Disallow: /build/
+
+# Block access to sensitive files
+Disallow: *.env
+Disallow: *.log

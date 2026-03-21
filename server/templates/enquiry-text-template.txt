@@ -1,0 +1,20 @@
+BKN Beauty Academy - New Enquiry Form Submission
+
+==================================================
+ENQUIRY TYPE: {{enquiryType}}
+==================================================
+
+FULL NAME: {{fullName}}
+
+EMAIL: {{email}}
+
+PHONE: {{phone}}
+
+MESSAGE:
+{{message}}
+
+
+--------------------------------------------------
+Sent from BKN Beauty Academy Enquiry Form
+This email was automatically generated. Please do not reply directly to this email.
+© 2026 BKN Beauty Academy. All rights reserved.

@@ -1,0 +1,122 @@
+/* This is the main CSS file for the beauty academy website */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap');
+
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS Variables */
+:root {
+  --primary-green: #2d4a3b;
+  --primary-green-dark: #4a7a5f;
+  --accent-gold: #d4af37;
+  --accent-gold-dark: #e5c158;
+  --light-beige: #f8f5f0;
+  --light-beige-dark: #1a1a1a;
+  --text-dark: #1a1a1a;
+  --text-light: #ffffff;
+  --text-dark-alt: #e2e8f0;
+  --bg-light: #ffffff;
+  --bg-dark: #0f172a;
+  --card-light: #f8f5f0;
+  --card-dark: #1e293b;
+  --border-light: #e5e7eb;
+  --border-dark: #374151;
+}
+
+/* Dark mode variables */
+[data-theme="dark"],
+html.dark {
+  --primary-green: var(--primary-green-dark);
+  --accent-gold: var(--accent-gold-dark);
+  --light-beige: var(--light-beige-dark);
+  --text-dark: var(--text-dark-alt);
+  --bg-light: var(--bg-dark);
+  --card-light: var(--card-dark);
+  --border-light: var(--border-dark);
+}
+
+/* Base styles */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--light-beige);
+  color: var(--text-dark);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode body styles */
+html.dark body {
+  background-color: var(--bg-dark);
+  color: var(--text-dark-alt);
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Smooth transitions for theme switching */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.bg-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+html.dark .bg-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Enhanced form styling with dark mode support */
+.form-container {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-900 p-6 max-w-2xl mx-auto;
+}
+
+.form-field {
+  @apply mb-4;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1;
+}
+
+.form-input {
+  @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-green focus:border-primary-green bg-white dark:bg-gray-700 text-gray-900 dark:text-white;
+}
+
+.form-button {
+  @apply w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-green hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-green dark:focus:ring-offset-gray-800;
+}
+
+/* Utility classes with dark mode variants */
+.text-accent {
+  color: var(--accent-gold);
+}
+
+html.dark .text-accent {
+  color: var(--accent-gold-dark);
+}
+
+.bg-accent {
+  background-color: var(--accent-gold);
+}
+
+html.dark .bg-accent {
+  background-color: var(--accent-gold-dark);
+}
+
+/* Additional dark mode enhancements */
+.btn-primary {
+  @apply bg-primary-green text-white hover:bg-opacity-90 dark:bg-primary-green-dark dark:hover:bg-opacity-90;
+}
+
+.card {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-900 p-6;
+}
+
+.border-custom {
+  @apply border border-gray-200 dark:border-gray-700;
+}

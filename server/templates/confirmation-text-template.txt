@@ -1,0 +1,21 @@
+BKN Beauty Academy - Form Submission Confirmation
+
+===============================================
+THANK YOU!
+Your {{formType}} has been received successfully.
+===============================================
+
+REFERENCE ID: {{submissionId}}
+
+SUBMITTED ON: {{submissionDate}}
+
+FORM TYPE: {{formType}}
+
+
+We will review your submission and get back to you shortly.
+If you have any questions, please feel free to contact us.
+
+
+--------------------------------------------------
+This email confirms your submission to BKN Beauty Academy
+© 2026 BKN Beauty Academy. All rights reserved.
