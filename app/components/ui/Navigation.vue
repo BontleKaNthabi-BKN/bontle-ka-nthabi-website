@@ -4,7 +4,7 @@
       <div class="flex justify-between h-16">
         <div class="flex items-center">
           <NuxtLink to="/" class="flex-shrink-0 flex items-center">
-            <img src="/images/logo.png" alt="BKN Beauty Academy Logo" class="h-20 w-auto" />
+            <img src="/images/logo.png" alt="BKN Beauty Academy Logo" class="h-32 w-auto" />
           </NuxtLink>
           <div class="hidden md:ml-6 md:flex md:space-x-8">
             <NuxtLink
