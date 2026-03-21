@@ -4,7 +4,7 @@
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
           <div class="flex items-center">
-            <img src="/images/logo.png" alt="BKN Beauty Academy Logo" class="h-16 w-auto" />
+            <img src="/images/logo.png" alt="BKN Beauty Academy Logo" class="h-28 w-auto" />
           </div>
           <p class="mt-4 text-base text-gray-500 dark:text-gray-300">
             Crafting careers in beauty through quality education and training.
