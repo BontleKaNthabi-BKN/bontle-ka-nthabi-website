@@ -1,39 +1,55 @@
 <template>
   <div class="form-container">
     <h2>Contact Us</h2>
-    <form @submit.prevent="submitContact">
+    <form @submit.prevent="submitContact" novalidate>
+      <!-- Full Name Field -->
       <div class="form-field">
-        <label for="fullName" class="form-label">Full Name *</label>
+        <label for="fullName" class="form-label">
+          Full Name <span class="required">*</span>
+        </label>
         <input
           id="fullName"
           v-model="form.fullName"
+          @blur="validateFullName"
           type="text"
           class="form-input"
-          required
-          maxlength="100"
+          :class="{ 'input-error': fieldErrors.fullName, 'input-success': fieldTouched.fullName && !fieldErrors.fullName }"
+          placeholder="Enter your full name"
           :disabled="isSubmitting"
         />
+        <p v-if="fieldErrors.fullName" class="field-error">{{ fieldErrors.fullName }}</p>
       </div>
 
+      <!-- Email Field -->
       <div class="form-field">
-        <label for="email" class="form-label">Email *</label>
+        <label for="email" class="form-label">
+          Email Address <span class="required">*</span>
+        </label>
         <input
           id="email"
           v-model="form.email"
+          @blur="validateEmail"
+          @input="clearError('email')"
           type="email"
           class="form-input"
-          required
+          :class="{ 'input-error': fieldErrors.email, 'input-success': fieldTouched.email && !fieldErrors.email }"
+          placeholder="your.email@example.com"
           :disabled="isSubmitting"
         />
+        <p v-if="fieldErrors.email" class="field-error">{{ fieldErrors.email }}</p>
       </div>
 
+      <!-- Subject Field -->
       <div class="form-field">
-        <label for="subject" class="form-label">Subject *</label>
+        <label for="subject" class="form-label">
+          Subject <span class="required">*</span>
+        </label>
         <select
           id="subject"
           v-model="form.subject"
+          @change="validateSubject"
           class="form-input"
-          required
+          :class="{ 'input-error': fieldErrors.subject, 'input-success': fieldTouched.subject && !fieldErrors.subject }"
           :disabled="isSubmitting"
         >
           <option value="" disabled>Select a subject</option>
@@ -43,32 +59,47 @@
           <option value="schedule">Class Schedule</option>
           <option value="other">Other</option>
         </select>
+        <p v-if="fieldErrors.subject" class="field-error">{{ fieldErrors.subject }}</p>
       </div>
 
+      <!-- Phone Field -->
       <div class="form-field">
         <label for="phone" class="form-label">Phone</label>
         <input
           id="phone"
           v-model="form.phone"
+          @blur="validatePhone"
+          @input="clearError('phone')"
           type="tel"
           class="form-input"
+          :class="{ 'input-error': fieldErrors.phone }"
+          placeholder="+27 12 345 6789"
           :disabled="isSubmitting"
         />
+        <p v-if="fieldErrors.phone" class="field-error">{{ fieldErrors.phone }}</p>
       </div>
 
+      <!-- Message Field -->
       <div class="form-field">
-        <label for="message" class="form-label">Message *</label>
+        <label for="message" class="form-label">
+          Message <span class="required">*</span>
+          <span class="char-count">{{ form.message.length }}/1000</span>
+        </label>
         <textarea
           id="message"
           v-model="form.message"
+          @blur="validateMessage"
+          @input="validateMessageLength"
           class="form-input"
+          :class="{ 'input-error': fieldErrors.message, 'input-success': fieldTouched.message && !fieldErrors.message }"
           rows="5"
-          required
-          maxlength="1000"
+          placeholder="Tell us how we can help you..."
           :disabled="isSubmitting"
         ></textarea>
+        <p v-if="fieldErrors.message" class="field-error">{{ fieldErrors.message }}</p>
       </div>
 
+      <!-- Attachment Field -->
       <div class="form-field">
         <label for="attachment" class="form-label">Attachment (Optional)</label>
         <input
@@ -79,11 +110,16 @@
           accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
           :disabled="isSubmitting"
         />
-        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Max file size: 10MB. Accepted formats: PDF, DOC, DOCX, JPG, PNG</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          Max file size: 10MB. Accepted formats: PDF, DOC, DOCX, JPG, PNG
+        </p>
+        <p v-if="fieldErrors.attachment" class="field-error">{{ fieldErrors.attachment }}</p>
+        <p v-if="fileName" class="file-selected">✓ Selected: {{ fileName }}</p>
       </div>
 
+      <!-- Submit Button -->
       <div class="form-field">
-        <button type="submit" class="form-button" :disabled="isSubmitting">
+        <button type="submit" class="form-button" :disabled="isSubmitting || !isFormValid">
           <span v-if="isSubmitting">
             <svg class="animate-spin inline-block h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -95,7 +131,7 @@
         </button>
       </div>
 
-      <!-- Error messages -->
+      <!-- General Error messages -->
       <div v-if="errors.length" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4" role="alert">
         <p class="font-bold mb-2">⚠️ Submission Error</p>
         <ul class="list-disc pl-5">
@@ -117,8 +153,17 @@ interface ContactFormData {
   fullName: string;
   email: string;
   subject: string;
-  phone?: string;
+  phone: string;
   message: string;
+}
+
+interface FieldErrors {
+  fullName: string;
+  email: string;
+  subject: string;
+  phone: string;
+  message: string;
+  attachment: string;
 }
 
 const form = reactive<ContactFormData>({
@@ -133,6 +178,143 @@ const errors = ref<string[]>([]);
 const successMessage = ref<string>('');
 const isSubmitting = ref(false);
 const fileData = ref<File | null>(null);
+const fileName = ref<string>('');
+const fieldTouched = ref<Record<string, boolean>>({
+  fullName: false,
+  email: false,
+  subject: false,
+  phone: false,
+  message: false
+});
+const fieldErrors = ref<FieldErrors>({
+  fullName: '',
+  email: '',
+  subject: '',
+  phone: '',
+  message: '',
+  attachment: ''
+});
+
+// Validation patterns
+const patterns = {
+  email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  phone: /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,4}[-\s\.]?[0-9]{1,9}$/,
+  name: /^[a-zA-Z\s'-]{2,50}$/
+};
+
+// Validation functions
+const validateFullName = (): boolean => {
+  fieldTouched.value.fullName = true;
+  const value = form.fullName.trim();
+  
+  if (!value) {
+    fieldErrors.value.fullName = 'Full name is required';
+    return false;
+  }
+  
+  if (value.length < 2) {
+    fieldErrors.value.fullName = 'Name must be at least 2 characters';
+    return false;
+  }
+  
+  if (value.length > 100) {
+    fieldErrors.value.fullName = 'Name cannot exceed 100 characters';
+    return false;
+  }
+  
+  if (!patterns.name.test(value)) {
+    fieldErrors.value.fullName = 'Name can only contain letters, spaces, hyphens, and apostrophes';
+    return false;
+  }
+  
+  fieldErrors.value.fullName = '';
+  return true;
+};
+
+const validateEmail = (): boolean => {
+  fieldTouched.value.email = true;
+  const value = form.email.trim();
+  
+  if (!value) {
+    fieldErrors.value.email = 'Email address is required';
+    return false;
+  }
+  
+  if (!patterns.email.test(value)) {
+    fieldErrors.value.email = 'Please enter a valid email address (e.g., name@example.com)';
+    return false;
+  }
+  
+  fieldErrors.value.email = '';
+  return true;
+};
+
+const validateSubject = (): boolean => {
+  fieldTouched.value.subject = true;
+  
+  if (!form.subject) {
+    fieldErrors.value.subject = 'Please select a subject';
+    return false;
+  }
+  
+  fieldErrors.value.subject = '';
+  return true;
+};
+
+const validatePhone = (): boolean => {
+  const value = form.phone.trim();
+  
+  if (!value) {
+    fieldErrors.value.phone = ''; // Phone is optional
+    return true;
+  }
+  
+  if (!patterns.phone.test(value)) {
+    fieldErrors.value.phone = 'Please enter a valid phone number';
+    return false;
+  }
+  
+  fieldErrors.value.phone = '';
+  return true;
+};
+
+const validateMessage = (): boolean => {
+  fieldTouched.value.message = true;
+  const value = form.message.trim();
+  
+  if (!value) {
+    fieldErrors.value.message = 'Message is required';
+    return false;
+  }
+  
+  if (value.length < 10) {
+    fieldErrors.value.message = 'Message must be at least 10 characters';
+    return false;
+  }
+  
+  if (value.length > 1000) {
+    fieldErrors.value.message = 'Message cannot exceed 1000 characters';
+    return false;
+  }
+  
+  fieldErrors.value.message = '';
+  return true;
+};
+
+const validateMessageLength = () => {
+  if (form.message.length > 1000) {
+    form.message = form.message.slice(0, 1000);
+  }
+  if (fieldTouched.value.message) {
+    validateMessage();
+  }
+};
+
+const clearError = (field: keyof FieldErrors) => {
+  if (fieldErrors.value[field]) {
+    fieldErrors.value[field] = '';
+  }
+};
 
 // Handle file upload
 const handleFileUpload = (event: Event) => {
@@ -143,25 +325,45 @@ const handleFileUpload = (event: Event) => {
     // Validate file size (10MB limit)
     const maxSize = 10 * 1024 * 1024;
     if (file.size > maxSize) {
-      errors.value = [`File size exceeds 10MB limit. Selected file: ${(file.size / 1024 / 1024).toFixed(2)}MB`];
+      fieldErrors.value.attachment = `File size exceeds 10MB limit. Selected file: ${(file.size / 1024 / 1024).toFixed(2)}MB`;
       target.value = '';
+      fileData.value = null;
+      fileName.value = '';
       return;
     }
     
     // Validate file type
     const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/jpg', 'image/png'];
     if (!allowedTypes.includes(file.type)) {
-      errors.value = ['Invalid file type. Please upload PDF, DOC, DOCX, JPG, or PNG files only.'];
+      fieldErrors.value.attachment = 'Invalid file type. Please upload PDF, DOC, DOCX, JPG, or PNG files only.';
       target.value = '';
+      fileData.value = null;
+      fileName.value = '';
       return;
     }
     
+    fieldErrors.value.attachment = '';
     fileData.value = file;
-    errors.value = [];
+    fileName.value = file.name;
   }
 };
 
-// Function to execute reCAPTCHA
+// Computed property for form validity
+const isFormValid = computed(() => {
+  return (
+    form.fullName.trim().length >= 2 &&
+    patterns.email.test(form.email.trim()) &&
+    form.subject !== '' &&
+    form.message.trim().length >= 10 &&
+    !fieldErrors.value.fullName &&
+    !fieldErrors.value.email &&
+    !fieldErrors.value.subject &&
+    !fieldErrors.value.message &&
+    !fieldErrors.value.attachment
+  );
+});
+
+// Execute reCAPTCHA
 const executeRecaptcha = async (action: string = 'contact_form'): Promise<string> => {
   const config = useRuntimeConfig();
   const recaptchaSiteKey = config.public.recaptchaSiteKey;
@@ -198,38 +400,25 @@ const executeRecaptcha = async (action: string = 'contact_form'): Promise<string
   return 'dummy-token-development';
 };
 
-// Validate form before submission
-const validateForm = (): string[] => {
-  const validationErrors: string[] = [];
-  
-  if (!form.fullName || form.fullName.trim().length < 2) {
-    validationErrors.push('Full name must be at least 2 characters long');
-  }
-  
-  if (!form.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-    validationErrors.push('Please enter a valid email address');
-  }
-  
-  if (!form.subject) {
-    validationErrors.push('Please select a subject');
-  }
-  
-  if (!form.message || form.message.trim().length < 10) {
-    validationErrors.push('Message must be at least 10 characters long');
-  }
-  
-  return validationErrors;
-};
-
 // Submit the contact form
 const submitContact = async () => {
   errors.value = [];
   successMessage.value = '';
   
-  // Client-side validation
-  const validationErrors = validateForm();
-  if (validationErrors.length > 0) {
-    errors.value = validationErrors;
+  // Validate all fields
+  const isFullNameValid = validateFullName();
+  const isEmailValid = validateEmail();
+  const isSubjectValid = validateSubject();
+  const isPhoneValid = validatePhone();
+  const isMessageValid = validateMessage();
+  
+  if (!isFullNameValid || !isEmailValid || !isSubjectValid || !isPhoneValid || !isMessageValid) {
+    errors.value = ['Please correct the errors above before submitting.'];
+    // Scroll to first error
+    const firstError = document.querySelector('.input-error');
+    if (firstError) {
+      firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
     return;
   }
   
@@ -242,7 +431,7 @@ const submitContact = async () => {
     formDataToSend.append('fullName', form.fullName.trim());
     formDataToSend.append('email', form.email.trim());
     formDataToSend.append('subject', form.subject);
-    formDataToSend.append('phone', form.phone?.trim() || '');
+    formDataToSend.append('phone', form.phone.trim());
     formDataToSend.append('message', form.message.trim());
     formDataToSend.append('recaptchaToken', recaptchaToken);
 
@@ -264,14 +453,29 @@ const submitContact = async () => {
         phone: '',
         message: ''
       });
+      fieldTouched.value = {
+        fullName: false,
+        email: false,
+        subject: false,
+        phone: false,
+        message: false
+      };
+      fieldErrors.value = {
+        fullName: '',
+        email: '',
+        subject: '',
+        phone: '',
+        message: '',
+        attachment: ''
+      };
 
       fileData.value = null;
+      fileName.value = '';
       const fileInput = document.getElementById('attachment') as HTMLInputElement;
       if (fileInput) fileInput.value = '';
 
       successMessage.value = 'Thank you! Your message has been sent successfully. We will get back to you within 2-3 business days.';
       
-      // Auto-hide success message after 10 seconds
       setTimeout(() => {
         successMessage.value = '';
       }, 10000);
@@ -285,7 +489,6 @@ const submitContact = async () => {
   } catch (error: any) {
     console.error('Submission error:', error);
     
-    // Handle different error types
     if (error.statusCode === 503) {
       errors.value = ['Service temporarily unavailable. Please try again later.'];
     } else if (error.statusCode === 429) {
@@ -307,23 +510,52 @@ const submitContact = async () => {
 }
 
 .form-field {
-  @apply mb-4;
+  @apply mb-5;
 }
 
 .form-label {
   @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1;
 }
 
+.required {
+  @apply text-red-500;
+}
+
+.char-count {
+  @apply float-right text-xs text-gray-500 dark:text-gray-400 font-normal;
+}
+
 .form-input {
-  @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary-green focus:border-primary-green dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed;
+  @apply w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-green focus:border-primary-green dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200;
+}
+
+.form-input.input-error {
+  @apply border-red-500 focus:ring-red-500 focus:border-red-500;
+}
+
+.form-input.input-success {
+  @apply border-green-500 focus:ring-green-500 focus:border-green-500;
 }
 
 .form-input-file {
-  @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary-green focus:border-primary-green dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed;
+  @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-green focus:border-primary-green dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
 .form-button {
   @apply w-full bg-primary-green hover:bg-opacity-90 dark:bg-primary-green-dark dark:hover:bg-opacity-90 text-white font-bold py-3 px-4 rounded-md transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center;
+}
+
+.field-error {
+  @apply mt-1.5 text-sm text-red-600 dark:text-red-400 flex items-center;
+}
+
+.field-error::before {
+  content: '⚠';
+  margin-right: 0.25rem;
+}
+
+.file-selected {
+  @apply mt-1.5 text-sm text-green-600 dark:text-green-400 flex items-center;
 }
 
 .animate-spin {
