@@ -1,21 +1,35 @@
-BKN Beauty Academy - Form Submission Confirmation
+================================================================================
+                    BKN BEAUTY ACADEMY
+              Excellence in Beauty Education
+================================================================================
 
-===============================================
-THANK YOU!
-Your {{formType}} has been received successfully.
-===============================================
+                      SUBMISSION RECEIVED!
+                    ✓ Thank you for contacting us
 
-REFERENCE ID: {{submissionId}}
+================================================================================
 
-SUBMITTED ON: {{submissionDate}}
+Dear {{fullName}},
 
-FORM TYPE: {{formType}}
+Thank you for your {{formType}}. We have received your submission and our 
+team will review it shortly. We will get back to you within 2-3 business days.
 
+REFERENCE DETAILS
+--------------------------------------------------------------------------------
 
-We will review your submission and get back to you shortly.
-If you have any questions, please feel free to contact us.
+Reference ID:       {{submissionId}}
+Submitted On:       {{submissionDate}}
+Form Type:          {{formType}}
 
+--------------------------------------------------------------------------------
 
---------------------------------------------------
-This email confirms your submission to BKN Beauty Academy
+NEED TO REACH US?
+
+📧 Email:  admin@bknbeautyacademy.co.za
+📞 Phone:  +27 12 345 6789
+
+================================================================================
+
 © 2026 BKN Beauty Academy. All rights reserved.
+Crafting Careers in Beauty
+
+================================================================================

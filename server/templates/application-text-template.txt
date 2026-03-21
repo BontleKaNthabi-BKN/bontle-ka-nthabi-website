@@ -1,25 +1,34 @@
-BKN Beauty Academy - New Application Form Submission
+================================================================================
+                    BKN BEAUTY ACADEMY
+              Excellence in Beauty Education
+================================================================================
 
-==================================================
-COURSE APPLIED FOR: {{courseSelection}}
-==================================================
+                    NEW STUDENT APPLICATION RECEIVED
 
-FIRST NAME: {{firstName}}
+================================================================================
+                      COURSE APPLIED FOR: {{courseSelection}}
+================================================================================
 
-LAST NAME: {{lastName}}
+APPLICANT DETAILS
+--------------------------------------------------------------------------------
 
-EMAIL: {{email}}
+Full Name:          {{firstName}} {{lastName}}
+Email Address:      {{email}}
+Phone Number:       {{phone}}
+Date of Birth:      {{dateOfBirth}}
+Address:            {{address}}
 
-PHONE: {{phone}}
+Attachments:        {{attachments}}
 
-DATE OF BIRTH: {{dateOfBirth}}
+--------------------------------------------------------------------------------
+📧 {{attachmentCount}} file(s) attached to this email
+   Please review the attached documents
+================================================================================
 
-ADDRESS: {{address}}
+This is an automated notification from BKN Beauty Academy.
+For inquiries, please contact us at our official channels.
 
-SUPPORTING DOCUMENTS: {{supportingDocuments}}
-
-
---------------------------------------------------
-Sent from BKN Beauty Academy Application Form
-This email was automatically generated. Please do not reply directly to this email.
 © 2026 BKN Beauty Academy. All rights reserved.
+Crafting Careers in Beauty
+
+================================================================================

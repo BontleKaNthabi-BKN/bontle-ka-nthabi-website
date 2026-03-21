@@ -208,13 +208,15 @@ async function createEmailTemplate(formData: any, formType: 'application' | 'enq
  * @param recipientEmail Email address of the form submitter
  * @param submissionId Unique ID of the submission
  * @param formType Type of form ('application' or 'enquiry')
+ * @param fullName Optional full name of the recipient
  * @returns Promise<boolean> indicating success or failure
  */
 export async function sendConfirmationEmail(
   config: EmailConfig,
   recipientEmail: string,
   submissionId: string,
-  formType: 'application' | 'enquiry'
+  formType: 'application' | 'enquiry',
+  fullName?: string
 ): Promise<boolean> {
   try {
     let transporter;
@@ -226,17 +228,18 @@ export async function sendConfirmationEmail(
         submissionId,
         formType
       });
-      
+
       return false;
     }
 
     // Load and fill the confirmation template
     const { html, text } = await loadTemplate('confirmation', {
-      formType: formType === 'application' ? 'application' : 'enquiry',
+      formType: formType === 'application' ? 'Application' : 'Enquiry',
       submissionId,
-      submissionDate: new Date().toISOString()
+      submissionDate: new Date().toISOString(),
+      fullName: fullName || 'Valued Customer'
     });
-    
+
     const subject = `Your ${formType === 'application' ? 'Application' : 'Enquiry'} Has Been Received`;
 
     const info = await transporter.sendMail({

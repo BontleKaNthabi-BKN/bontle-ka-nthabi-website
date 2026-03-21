@@ -3,7 +3,7 @@
 import { readMultipartFormData } from 'h3';
 import { logger } from '../utils/logger';
 import { sendFormNotification, sendConfirmationEmail } from '../utils/email-service';
-import { storeFormDataInDrive, storeDocumentInDrive } from '../utils/google-drive';
+import { storeFormDataInDrive } from '../utils/google-drive';
 import { validateContact } from '../utils/form-validator';
 import { verifyRecaptcha } from '../utils/recaptcha';
 import type { SubmitResponse } from '~/app/types/form-types';
@@ -78,9 +78,7 @@ export default defineEventHandler(async (event) => {
       logger.warn('reCAPTCHA token is missing', {
         email: formData.email
       });
-      
-      // In development or if reCAPTCHA is not properly configured, we'll allow the submission
-      // but log it appropriately
+
       const config = useRuntimeConfig();
       if (!config.public.recaptchaSiteKey || process.env.NODE_ENV !== 'production') {
         logger.info('Allowing submission without reCAPTCHA in development mode', {
@@ -161,74 +159,25 @@ export default defineEventHandler(async (event) => {
     // Record the submission to prevent duplicates
     await recordSubmission(submissionId, formData.email, clientIP);
 
-    // Process the submission with email and Google Drive integration
-    // Get email and Google Drive configurations from runtime config
+    // Process the submission with email integration
     const config = useRuntimeConfig();
-    
+
     // Prepare email configuration
     const emailConfig = {
       host: config.smtpHost,
       port: parseInt(config.smtpPort),
-      secure: config.smtpSecure === 'true', // true for 465, false for other ports
+      secure: config.smtpSecure === 'true',
       auth: {
         user: config.smtpUser,
         pass: config.smtpPass
       }
     };
 
-    // Prepare Google Drive configuration
-    const driveConfig = {
-      clientId: config.googleDriveClientId,
-      clientSecret: config.googleDriveClientSecret,
-      redirectUri: config.googleDriveRedirectUri,
-      refreshToken: config.googleDriveRefreshToken
-    };
-
     // Store form data in Google Drive (only if credentials are provided)
+    // Note: Google Drive storage is disabled for now
     let driveResult = { success: false, driveStored: false };
-    if (driveConfig.clientId && driveConfig.clientSecret && driveConfig.redirectUri) {
-      try {
-        driveResult = await storeFormDataInDrive(
-          driveConfig,
-          formData,
-          'enquiry', // Using 'enquiry' type for contact form
-          `contact_submission_${submissionId}.json`
-        );
-      } catch (error: any) {
-        logger.error('Failed to store form data in Google Drive', {
-          error: error.message,
-          submissionId,
-          email: formData.email
-        });
-        driveResult = { success: false, driveStored: false };
-      }
-    } else {
-      logger.warn('Google Drive credentials not configured, skipping Google Drive storage', {
-        submissionId,
-        email: formData.email
-      });
-    }
 
-    // If there's a file attachment, store it in Google Drive (only if credentials are provided)
-    let fileStoredInDrive = false;
-    if (fileBuffer && fileName && driveConfig.clientId && driveConfig.clientSecret && driveConfig.redirectUri) {
-      try {
-        const fileId = await storeDocumentInDrive(
-          driveConfig,
-          fileBuffer,
-          `${submissionId}_${fileName}`
-        );
-        fileStoredInDrive = !!fileId;
-      } catch (error: any) {
-        logger.error('Failed to store file in Google Drive', {
-          error: error.message,
-          submissionId,
-          fileName
-        });
-      }
-    }
-
-    // Send notification email (only if credentials are provided)
+    // Send notification email with attachment if present
     let emailResult = { success: false, emailSent: false };
     if (emailConfig.auth.user && emailConfig.auth.pass) {
       try {
@@ -237,9 +186,9 @@ export default defineEventHandler(async (event) => {
 
         emailResult = await sendFormNotification(
           emailConfig,
-          config.adminEmail || 'admin@bknbeautyacademy.co.za', // Admin email for notifications
+          config.adminEmail || 'admin@bknbeautyacademy.co.za',
           formData,
-          'enquiry', // Using 'enquiry' type for contact form
+          'enquiry',
           attachments
         );
       } catch (error: any) {
@@ -256,8 +205,8 @@ export default defineEventHandler(async (event) => {
         email: formData.email
       });
     }
-    
-    // Send confirmation email to the user (only if credentials are provided)
+
+    // Send confirmation email to the user
     let confirmationSent = false;
     if (emailConfig.auth.user && emailConfig.auth.pass) {
       try {
@@ -265,7 +214,8 @@ export default defineEventHandler(async (event) => {
           emailConfig,
           formData.email,
           submissionId,
-          'enquiry' // Using 'enquiry' type for contact form
+          'enquiry',
+          formData.fullName
         );
       } catch (error: any) {
         logger.error('Failed to send confirmation email', {
@@ -276,8 +226,8 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    // Determine overall success based on email and drive results
-    const overallSuccess = emailResult.success || driveResult.success;
+    // Determine overall success based on email results
+    const overallSuccess = emailResult.success;
 
     // Log the submission
     logger.info('Contact form submitted successfully', {
@@ -285,8 +235,7 @@ export default defineEventHandler(async (event) => {
       email: formData.email,
       subject: formData.subject,
       emailSent: emailResult.success,
-      driveStored: driveResult.success,
-      fileStoredInDrive
+      hasAttachment: !!fileBuffer
     });
 
     // Return success response

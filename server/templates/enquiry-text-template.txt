@@ -1,20 +1,35 @@
-BKN Beauty Academy - New Enquiry Form Submission
+================================================================================
+                    BKN BEAUTY ACADEMY
+              Excellence in Beauty Education
+================================================================================
 
-==================================================
-ENQUIRY TYPE: {{enquiryType}}
-==================================================
+                      NEW COURSE ENQUIRY RECEIVED
 
-FULL NAME: {{fullName}}
+================================================================================
+                        ENQUIRY TYPE: {{enquiryType}}
+================================================================================
 
-EMAIL: {{email}}
+CONTACT DETAILS
+--------------------------------------------------------------------------------
 
-PHONE: {{phone}}
+Full Name:          {{fullName}}
+Email Address:      {{email}}
+Phone Number:       {{phone}}
 
-MESSAGE:
+================================================================================
+                              MESSAGE
+--------------------------------------------------------------------------------
+
 {{message}}
 
+================================================================================
 
---------------------------------------------------
-Sent from BKN Beauty Academy Enquiry Form
-This email was automatically generated. Please do not reply directly to this email.
+📧 Click to reply: mailto:{{email}}
+
+This is an automated notification from BKN Beauty Academy.
+For inquiries, please contact us at our official channels.
+
 © 2026 BKN Beauty Academy. All rights reserved.
+Crafting Careers in Beauty
+
+================================================================================
