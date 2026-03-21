@@ -4,7 +4,7 @@
       <div class="flex justify-between h-20">
         <div class="flex items-center">
           <NuxtLink to="/" class="flex-shrink-0 flex items-center p-3 rounded-xl bg-gradient-to-br from-white to-gray-50 dark:from-gray-700 dark:to-gray-600 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 border border-gray-100 dark:border-gray-600">
-            <img src="/images/logo.png" alt="BKN Beauty Academy Logo" class="h-22 w-auto" />
+            <img src="/images/logo.png" alt="BKN Beauty Academy Logo" class="h-[88px] w-auto" />
           </NuxtLink>
           <div class="hidden md:ml-6 md:flex md:space-x-8">
             <NuxtLink
