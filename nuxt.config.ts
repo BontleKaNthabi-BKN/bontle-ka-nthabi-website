@@ -26,7 +26,7 @@ export default defineNuxtConfig({
     // Public config that is exposed to the client
     public: {
       recaptchaSiteKey: process.env.NUXT_PUBLIC_RECAPTCHA_SITE_KEY || '',
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.beautyacademy.co.za'
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.bknbeautyacademy.co.za'
     }
   },
   colorMode: {
@@ -47,12 +47,12 @@ export default defineNuxtConfig({
   },
   // SEO Configuration
   site: {
-    url: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.beautyacademy.co.za',
+    url: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.bknbeautyacademy.co.za',
     name: 'BKN Beauty Academy',
     description: 'Accredited beauty courses and professional training in South Africa. Join us for certified beauty education and career development.',
   },
   sitemap: {
-    hostname: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.beautyacademy.co.za',
+    hostname: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.bknbeautyacademy.co.za',
     gzip: true,
     routes: [
       '/',
@@ -89,7 +89,7 @@ export default defineNuxtConfig({
 
         // Open Graph / Facebook
         { property: 'og:type', content: 'website' },
-        { property: 'og:url', content: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.beautyacademy.co.za' },
+        { property: 'og:url', content: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.bknbeautyacademy.co.za' },
         { property: 'og:title', content: 'BKN Beauty Academy | Accredited Beauty Courses in South Africa' },
         {
           property: 'og:description',
@@ -99,7 +99,7 @@ export default defineNuxtConfig({
 
         // Twitter
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:url', content: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.beautyacademy.co.za' },
+        { name: 'twitter:url', content: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.bknbeautyacademy.co.za' },
         { name: 'twitter:title', content: 'BKN Beauty Academy | Accredited Beauty Courses in South Africa' },
         {
           name: 'twitter:description',
@@ -109,7 +109,7 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'canonical', href: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.beautyacademy.co.za' }
+        { rel: 'canonical', href: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.bknbeautyacademy.co.za' }
       ],
       script: [
         // Load reCAPTCHA script

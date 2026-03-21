@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Sitemap: https://www.beautyacademy.co.za/sitemap.xml
+Sitemap: https://www.bknbeautyacademy.co.za/sitemap.xml
 
 # Block access to private files
 Disallow: /server/

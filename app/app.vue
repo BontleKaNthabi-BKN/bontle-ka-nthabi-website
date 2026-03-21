@@ -29,7 +29,7 @@ const organizationSchema = {
   "name": "BKN Beauty Academy",
   "alternateName": "Beauty Academy",
   "description": "Accredited beauty courses and professional training in South Africa. Join us for certified beauty education and career development.",
-  "url": "https://www.beautyacademy.co.za",
+  "url": "https://www.bknbeautyacademy.co.za",
   "logo": "/images/logo.png", // Updated to use the new logo image from images folder
   "address": {
     "@type": "PostalAddress",
