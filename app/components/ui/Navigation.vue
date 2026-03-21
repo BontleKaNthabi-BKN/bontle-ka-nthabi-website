@@ -1,10 +1,10 @@
 <template>
-  <nav class="bg-white dark:bg-gray-800 shadow-md dark:shadow-gray-900">
+  <nav class="bg-white dark:bg-gray-800 sticky top-0 z-50 shadow-xl dark:shadow-gray-900/50 backdrop-blur-sm bg-opacity-95 dark:bg-opacity-95">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16">
+      <div class="flex justify-between h-20">
         <div class="flex items-center">
-          <NuxtLink to="/" class="flex-shrink-0 flex items-center p-2 rounded-lg bg-white dark:bg-gray-700 shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <img src="/images/logo.png" alt="BKN Beauty Academy Logo" class="h-24 w-auto" />
+          <NuxtLink to="/" class="flex-shrink-0 flex items-center p-3 rounded-xl bg-gradient-to-br from-white to-gray-50 dark:from-gray-700 dark:to-gray-600 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 border border-gray-100 dark:border-gray-600">
+            <img src="/images/logo.png" alt="BKN Beauty Academy Logo" class="h-20 w-auto" />
           </NuxtLink>
           <div class="hidden md:ml-6 md:flex md:space-x-8">
             <NuxtLink
