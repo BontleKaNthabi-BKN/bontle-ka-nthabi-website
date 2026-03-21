@@ -178,9 +178,10 @@ export default defineEventHandler(async (event) => {
     let emailResult = { success: false, emailSent: false };
     if (emailConfig.auth.user && emailConfig.auth.pass) {
       try {
-        // Include file information in the form data for the email
+        // Include file information and submission ID in the form data for the email
         const formDataWithFiles = {
           ...formData,
+          submissionId,
           attachments: files.map(f => f.name).join(', ') || 'None',
           attachmentCount: files.length
         };

@@ -180,14 +180,22 @@ export default defineEventHandler(async (event) => {
     let emailResult = { success: false, emailSent: false };
     if (emailConfig.auth.user && emailConfig.auth.pass) {
       try {
-        // Include file attachment in email if present
+        // Include file attachment and submission details in email
         const attachments = fileBuffer ? [{ buffer: fileBuffer, name: fileName || 'attachment' }] : undefined;
+        
+        // Add submission ID and enquiry type to form data for email
+        const formDataWithEmail = {
+          ...formData,
+          submissionId,
+          enquiryType: formData.subject || 'General',
+          attachment: fileName || 'None'
+        };
 
         emailResult = await sendFormNotification(
           emailConfig,
           config.adminEmail || 'admin@bknbeautyacademy.co.za',
-          formData,
-          'enquiry',
+          formDataWithEmail,
+          'contact',
           attachments
         );
       } catch (error: any) {

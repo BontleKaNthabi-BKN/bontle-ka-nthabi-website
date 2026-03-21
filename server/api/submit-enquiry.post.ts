@@ -128,10 +128,16 @@ export default defineEventHandler(async (event) => {
     let emailResult = { success: false, emailSent: false };
     if (emailConfig.auth.user && emailConfig.auth.pass) {
       try {
+        // Add submission ID to form data for email
+        const formDataWithEmail = {
+          ...body,
+          submissionId
+        };
+
         emailResult = await sendFormNotification(
           emailConfig,
           config.adminEmail || 'admin@bknbeautyacademy.co.za',
-          body,
+          formDataWithEmail,
           'enquiry'
         );
       } catch (error: any) {

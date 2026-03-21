@@ -6,6 +6,8 @@
                       NEW CONTACT ENQUIRY RECEIVED
 
 ================================================================================
+Reference ID: {{submissionId}}
+================================================================================
                            SUBJECT: {{subject}}
 ================================================================================
 
@@ -15,6 +17,7 @@ CONTACT DETAILS
 Full Name:          {{fullName}}
 Email Address:      {{email}}
 Phone Number:       {{phone}}
+Enquiry Type:       {{enquiryType}}
 Attachment:         {{attachment}}
 
 ================================================================================

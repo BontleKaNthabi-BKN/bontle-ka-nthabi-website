@@ -35,7 +35,7 @@ function createTransporter(config: EmailConfig) {
  * @param config Email configuration
  * @param recipientEmail Email address of the recipient
  * @param formData Form data to include in the email
- * @param formType Type of form ('application' or 'enquiry')
+ * @param formType Type of form ('application', 'contact', or 'enquiry')
  * @param attachments Optional array of file attachments
  * @returns Promise<FormSubmissionResult> indicating success or failure
  */
@@ -43,7 +43,7 @@ export async function sendFormNotification(
   config: EmailConfig,
   recipientEmail: string,
   formData: any,
-  formType: 'application' | 'enquiry',
+  formType: 'application' | 'contact' | 'enquiry',
   attachments?: { buffer: Buffer; name: string }[]
 ): Promise<FormSubmissionResult> {
   try {
@@ -176,10 +176,10 @@ function replacePlaceholders(template: string, data: Record<string, any>): strin
 /**
  * Creates an email template based on form data and type
  * @param formData The form data to include in the email
- * @param formType Type of form ('application' or 'enquiry')
+ * @param formType Type of form ('application', 'contact', or 'enquiry')
  * @returns Email template with subject, HTML, and text content
  */
-async function createEmailTemplate(formData: any, formType: 'application' | 'enquiry'): Promise<EmailTemplate> {
+async function createEmailTemplate(formData: any, formType: 'application' | 'contact' | 'enquiry'): Promise<EmailTemplate> {
   let subject = '';
   let templateName = '';
 
@@ -187,9 +187,13 @@ async function createEmailTemplate(formData: any, formType: 'application' | 'enq
     // Student application form
     subject = 'New Student Application Received';
     templateName = 'application';
+  } else if (formType === 'contact') {
+    // Contact form
+    subject = 'New Contact Enquiry Received';
+    templateName = 'contact';
   } else {
     // Enquiry form
-    subject = 'New Enquiry Received';
+    subject = 'New Course Enquiry Received';
     templateName = 'enquiry';
   }
 
