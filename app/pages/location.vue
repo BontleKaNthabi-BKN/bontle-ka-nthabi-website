@@ -196,9 +196,9 @@ setCustomSeoMeta({
   keywords: 'beauty academy location, mbombela beauty school, south africa beauty courses, beauty academy mpumalanga, beauty school location',
   ogTitle: 'Beauty Academy Location | Mbombela, South Africa | BKN Beauty Academy',
   ogDescription: 'Find BKN Beauty Academy in Mbombela, South Africa. Visit our campus in the heart of Mpumalanga province for accredited beauty courses.',
-  ogImage: '/images/location-og.jpg', // Placeholder - will need actual image
+  ogImage: '/images/gallery/photos/gallery-04.jpg',
   twitterTitle: 'Beauty Academy Location | Mbombela, South Africa | BKN Beauty Academy',
   twitterDescription: 'Find BKN Beauty Academy in Mbombela, South Africa. Visit our campus in the heart of Mpumalanga province for accredited beauty courses.',
-  twitterImage: '/images/location-twitter.jpg' // Placeholder - will need actual image
+  twitterImage: '/images/gallery/photos/gallery-05.jpg'
 });
 </script>

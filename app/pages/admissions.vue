@@ -279,9 +279,9 @@ setCustomSeoMeta({
   keywords: 'beauty academy admissions, admission requirements, application process, beauty courses south africa, how to apply beauty school, admission timeline',
   ogTitle: 'Admissions to Beauty Academy | Requirements & Process | BKN Beauty Academy',
   ogDescription: 'Learn about admissions requirements and the application process at BKN Beauty Academy. Find out how to apply for our accredited beauty courses in South Africa.',
-  ogImage: '/images/admissions-og.jpg', // Placeholder - will need actual image
+  ogImage: '/images/gallery/photos/gallery-15.jpg',
   twitterTitle: 'Admissions to Beauty Academy | Requirements & Process | BKN Beauty Academy',
   twitterDescription: 'Learn about admissions requirements and the application process at BKN Beauty Academy. Find out how to apply for our accredited beauty courses in South Africa.',
-  twitterImage: '/images/admissions-twitter.jpg' // Placeholder - will need actual image
+  twitterImage: '/images/gallery/photos/gallery-01.jpg'
 });
 </script>

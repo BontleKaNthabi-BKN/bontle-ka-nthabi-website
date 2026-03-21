@@ -31,7 +31,15 @@
                 in today's competitive beauty market.
               </p>
             </div>
-            <div class="bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl w-full h-80" />
+            <div>
+              <img 
+                src="/images/gallery/photos/gallery-09.jpg" 
+                alt="Our Story" 
+                loading="lazy" 
+                decoding="async" 
+                class="w-full h-80 object-cover object-top rounded-xl shadow-lg" 
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -117,9 +125,9 @@ setCustomSeoMeta({
   keywords: 'about beauty academy, beauty school south africa, accredited beauty courses, beauty education, beauty training',
   ogTitle: 'About BKN Beauty Academy | Accredited Beauty School in South Africa',
   ogDescription: 'Learn about BKN Beauty Academy, a leading beauty school in South Africa offering accredited courses.',
-  ogImage: '/images/about-og.jpg', // Placeholder - will need actual image
+  ogImage: '/images/gallery/photos/gallery-07.jpg',
   twitterTitle: 'About BKN Beauty Academy | Accredited Beauty School in South Africa',
   twitterDescription: 'Learn about BKN Beauty Academy, a leading beauty school in South Africa offering accredited courses.',
-  twitterImage: '/images/about-twitter.jpg' // Placeholder - will need actual image
+  twitterImage: '/images/gallery/photos/gallery-08.jpg'
 });
 </script>

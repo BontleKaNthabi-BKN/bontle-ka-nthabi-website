@@ -188,9 +188,9 @@ setCustomSeoMeta({
   keywords: 'beauty services, beauty training programs, cosmetology services, esthetics training, nail technology, makeup artistry, beauty courses south africa',
   ogTitle: 'Beauty Services & Training Programs | BKN Beauty Academy',
   ogDescription: 'Explore comprehensive beauty services and training programs at BKN Beauty Academy. Cosmetology, esthetics, nail technology, makeup artistry & more.',
-  ogImage: '/images/services-og.jpg', // Placeholder - will need actual image
+  ogImage: '/images/gallery/photos/gallery-13.jpg',
   twitterTitle: 'Beauty Services & Training Programs | BKN Beauty Academy',
   twitterDescription: 'Explore comprehensive beauty services and training programs at BKN Beauty Academy. Cosmetology, esthetics, nail technology, makeup artistry & more.',
-  twitterImage: '/images/services-twitter.jpg' // Placeholder - will need actual image
+  twitterImage: '/images/gallery/photos/gallery-14.jpg'
 });
 </script>

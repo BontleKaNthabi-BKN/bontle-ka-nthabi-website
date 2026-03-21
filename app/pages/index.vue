@@ -140,10 +140,34 @@
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="aspect-square bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl" />
-          <div class="aspect-square bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl" />
-          <div class="aspect-square bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl" />
-          <div class="aspect-square bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl" />
+          <img 
+            src="/images/gallery/photos/gallery-09.jpg" 
+            alt="Gallery preview 1" 
+            loading="lazy" 
+            decoding="async" 
+            class="aspect-square object-cover object-top rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300" 
+          />
+          <img 
+            src="/images/gallery/photos/gallery-10.jpg" 
+            alt="Gallery preview 2" 
+            loading="lazy" 
+            decoding="async" 
+            class="aspect-square object-cover object-top rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300" 
+          />
+          <img 
+            src="/images/gallery/photos/gallery-11.jpg" 
+            alt="Gallery preview 3" 
+            loading="lazy" 
+            decoding="async" 
+            class="aspect-square object-cover object-top rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300" 
+          />
+          <img 
+            src="/images/gallery/photos/gallery-12.jpg" 
+            alt="Gallery preview 4" 
+            loading="lazy" 
+            decoding="async" 
+            class="aspect-square object-cover object-top rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300" 
+          />
         </div>
 
         <div class="text-center mt-10">
@@ -159,7 +183,13 @@
       <div class="container mx-auto px-4">
         <div class="flex flex-col md:flex-row items-center gap-12">
           <div class="md:w-1/2">
-            <div class="bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl w-full h-80" />
+            <img 
+              src="/images/gallery/photos/gallery-08.jpg" 
+              alt="About Our Academy" 
+              loading="lazy" 
+              decoding="async" 
+              class="w-full h-80 object-cover object-top rounded-xl shadow-lg" 
+            />
           </div>
           <div class="md:w-1/2">
             <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-6">About Our Academy</h2>
@@ -213,9 +243,9 @@ setCustomSeoMeta({
   keywords: 'beauty academy, beauty courses, beauty school, south africa, accredited courses, cosmetology, makeup artistry, nail technician, esthetician, beauty training',
   ogTitle: 'BKN Beauty Academy | Accredited Beauty Courses in South Africa',
   ogDescription: 'Join BKN Beauty Academy for accredited beauty courses in South Africa. Professional training in makeup, nails, skincare & more.',
-  ogImage: '/images/homepage-og.jpg', // Placeholder - will need actual image
+  ogImage: '/images/gallery/photos/gallery-03.jpg',
   twitterTitle: 'BKN Beauty Academy | Accredited Beauty Courses in South Africa',
   twitterDescription: 'Join BKN Beauty Academy for accredited beauty courses in South Africa. Professional training in makeup, nails, skincare & more.',
-  twitterImage: '/images/homepage-twitter.jpg' // Placeholder - will need actual image
+  twitterImage: '/images/gallery/photos/gallery-04.jpg'
 });
 </script>

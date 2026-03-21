@@ -20,7 +20,13 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Gallery Item 1 -->
             <div class="group">
-              <div class="bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl w-full h-64" />
+              <img 
+                src="/images/gallery/photos/gallery-01.jpg" 
+                alt="Student Work Showcase" 
+                loading="lazy" 
+                decoding="async" 
+                class="w-full h-64 object-cover object-top rounded-xl shadow-md group-hover:shadow-lg transition-shadow duration-300" 
+              />
               <div class="mt-4">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Student Work Showcase</h3>
                 <p class="text-gray-600 dark:text-gray-300">Examples of our students' exceptional beauty work</p>
@@ -29,7 +35,13 @@
 
             <!-- Gallery Item 2 -->
             <div class="group">
-              <div class="bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl w-full h-64" />
+              <img 
+                src="/images/gallery/photos/gallery-02.jpg" 
+                alt="Facility Tour" 
+                loading="lazy" 
+                decoding="async" 
+                class="w-full h-64 object-cover object-top rounded-xl shadow-md group-hover:shadow-lg transition-shadow duration-300" 
+              />
               <div class="mt-4">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Facility Tour</h3>
                 <p class="text-gray-600 dark:text-gray-300">Take a look at our modern training facilities</p>
@@ -38,7 +50,13 @@
 
             <!-- Gallery Item 3 -->
             <div class="group">
-              <div class="bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl w-full h-64" />
+              <img 
+                src="/images/gallery/photos/gallery-03.jpg" 
+                alt="Graduation Ceremony" 
+                loading="lazy" 
+                decoding="async" 
+                class="w-full h-64 object-cover object-top rounded-xl shadow-md group-hover:shadow-lg transition-shadow duration-300" 
+              />
               <div class="mt-4">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Graduation Ceremony</h3>
                 <p class="text-gray-600 dark:text-gray-300">Celebrating our successful graduates</p>
@@ -47,7 +65,13 @@
 
             <!-- Gallery Item 4 -->
             <div class="group">
-              <div class="bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl w-full h-64" />
+              <img 
+                src="/images/gallery/photos/gallery-04.jpg" 
+                alt="Workshop Sessions" 
+                loading="lazy" 
+                decoding="async" 
+                class="w-full h-64 object-cover object-top rounded-xl shadow-md group-hover:shadow-lg transition-shadow duration-300" 
+              />
               <div class="mt-4">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Workshop Sessions</h3>
                 <p class="text-gray-600 dark:text-gray-300">Learning new techniques in our specialized workshops</p>
@@ -56,7 +80,13 @@
 
             <!-- Gallery Item 5 -->
             <div class="group">
-              <div class="bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl w-full h-64" />
+              <img 
+                src="/images/gallery/photos/gallery-05.jpg" 
+                alt="Makeup Artistry" 
+                loading="lazy" 
+                decoding="async" 
+                class="w-full h-64 object-cover object-top rounded-xl shadow-md group-hover:shadow-lg transition-shadow duration-300" 
+              />
               <div class="mt-4">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Makeup Artistry</h3>
                 <p class="text-gray-600 dark:text-gray-300">Creative makeup applications by our talented students</p>
@@ -65,7 +95,13 @@
 
             <!-- Gallery Item 6 -->
             <div class="group">
-              <div class="bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl w-full h-64" />
+              <img 
+                src="/images/gallery/photos/gallery-06.jpg" 
+                alt="Nail Art Designs" 
+                loading="lazy" 
+                decoding="async" 
+                class="w-full h-64 object-cover object-top rounded-xl shadow-md group-hover:shadow-lg transition-shadow duration-300" 
+              />
               <div class="mt-4">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Nail Art Designs</h3>
                 <p class="text-gray-600 dark:text-gray-300">Intricate nail art created by our nail technology students</p>
@@ -85,7 +121,13 @@
           <div class="space-y-12">
             <!-- Achievement 1 -->
             <div class="flex flex-col md:flex-row items-center gap-8">
-              <div class="bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl w-full md:w-1/3 h-64" />
+              <img 
+                src="/images/gallery/photos/gallery-07.jpg" 
+                alt="2025 Graduation Photos" 
+                loading="lazy" 
+                decoding="async" 
+                class="w-full md:w-1/3 h-64 object-cover object-top rounded-xl shadow-md" 
+              />
               <div class="md:w-2/3">
                 <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2">2025 Graduation Photos</h3>
                 <p class="text-gray-600 dark:text-gray-300 mb-4">
@@ -101,7 +143,13 @@
 
             <!-- Achievement 2 -->
             <div class="flex flex-col md:flex-row-reverse items-center gap-8">
-              <div class="bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl w-full md:w-1/3 h-64" />
+              <img 
+                src="/images/gallery/photos/gallery-08.jpg" 
+                alt="Competition Winners" 
+                loading="lazy" 
+                decoding="async" 
+                class="w-full md:w-1/3 h-64 object-cover object-top rounded-xl shadow-md" 
+              />
               <div class="md:w-2/3">
                 <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2">Competition Winners</h3>
                 <p class="text-gray-600 dark:text-gray-300 mb-4">
@@ -152,9 +200,9 @@ setCustomSeoMeta({
   keywords: 'beauty academy gallery, student work, beauty school facilities, beauty course results, student achievements, beauty training photos',
   ogTitle: 'Beauty Academy Gallery | Student Work & Facilities | BKN Beauty Academy',
   ogDescription: 'View our gallery showcasing student work, modern facilities, and achievements at BKN Beauty Academy.',
-  ogImage: '/images/gallery-og.jpg', // Placeholder - will need actual image
+  ogImage: '/images/gallery/photos/gallery-01.jpg',
   twitterTitle: 'Beauty Academy Gallery | Student Work & Facilities | BKN Beauty Academy',
   twitterDescription: 'View our gallery showcasing student work, modern facilities, and achievements at BKN Beauty Academy.',
-  twitterImage: '/images/gallery-twitter.jpg' // Placeholder - will need actual image
+  twitterImage: '/images/gallery/photos/gallery-02.jpg'
 });
 </script>

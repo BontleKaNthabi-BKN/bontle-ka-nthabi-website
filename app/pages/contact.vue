@@ -207,9 +207,9 @@ setCustomSeoMeta({
   keywords: 'contact beauty academy, beauty school south africa, beauty course inquiries, beauty academy contact, beauty school contact information',
   ogTitle: 'Contact BKN Beauty Academy | Beauty School in South Africa',
   ogDescription: 'Contact BKN Beauty Academy in South Africa. Reach out for inquiries about our accredited beauty courses, admissions, and career opportunities.',
-  ogImage: '/images/contact-og.jpg', // Placeholder - will need actual image
+  ogImage: '/images/gallery/photos/gallery-09.jpg',
   twitterTitle: 'Contact BKN Beauty Academy | Beauty School in South Africa',
   twitterDescription: 'Contact BKN Beauty Academy in South Africa. Reach out for inquiries about our accredited beauty courses, admissions, and career opportunities.',
-  twitterImage: '/images/contact-twitter.jpg' // Placeholder - will need actual image
+  twitterImage: '/images/gallery/photos/gallery-10.jpg'
 });
 </script>

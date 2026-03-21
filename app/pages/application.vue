@@ -43,10 +43,10 @@ setCustomSeoMeta({
   keywords: 'apply beauty academy, beauty course application, student application form, beauty school south africa, accredited beauty courses application',
   ogTitle: 'Apply to Beauty Academy | Student Application Form | BKN Beauty Academy',
   ogDescription: 'Apply for accredited beauty courses at BKN Beauty Academy. Start your career in the beauty industry with our comprehensive training programs.',
-  ogImage: '/images/application-og.jpg', // Placeholder - will need actual image
+  ogImage: '/images/gallery/photos/gallery-06.jpg',
   twitterTitle: 'Apply to Beauty Academy | Student Application Form | BKN Beauty Academy',
   twitterDescription: 'Apply for accredited beauty courses at BKN Beauty Academy. Start your career in the beauty industry with our comprehensive training programs.',
-  twitterImage: '/images/application-twitter.jpg' // Placeholder - will need actual image
+  twitterImage: '/images/gallery/photos/gallery-07.jpg'
 });
 
 // Component imports

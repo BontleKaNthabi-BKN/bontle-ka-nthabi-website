@@ -143,10 +143,10 @@ setCustomSeoMeta({
   keywords: 'enquire beauty courses, beauty course information, contact beauty academy, beauty school south africa, beauty course enquiry form',
   ogTitle: 'Enquire About Beauty Courses | Contact Us | BKN Beauty Academy',
   ogDescription: 'Send an enquiry about beauty courses at BKN Beauty Academy. Get information about our accredited programs, admission requirements, and more.',
-  ogImage: '/images/enquiry-og.jpg', // Placeholder - will need actual image
+  ogImage: '/images/gallery/photos/gallery-02.jpg',
   twitterTitle: 'Enquire About Beauty Courses | Contact Us | BKN Beauty Academy',
   twitterDescription: 'Send an enquiry about beauty courses at BKN Beauty Academy. Get information about our accredited programs, admission requirements, and more.',
-  twitterImage: '/images/enquiry-twitter.jpg' // Placeholder - will need actual image
+  twitterImage: '/images/gallery/photos/gallery-03.jpg'
 });
 
 // Component imports

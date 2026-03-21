@@ -103,9 +103,9 @@ setCustomSeoMeta({
   keywords: 'beauty academy, beauty courses, beauty school, south africa, accredited courses, cosmetology, makeup artistry, nail technician, esthetician, beauty training',
   ogTitle: 'BKN Beauty Academy | Accredited Beauty Courses in South Africa',
   ogDescription: 'Join BKN Beauty Academy for accredited beauty courses in South Africa. Professional training in makeup, nails, skincare & more.',
-  ogImage: '/images/og-image.jpg', // Placeholder - will need actual image
+  ogImage: '/images/gallery/photos/gallery-05.jpg',
   twitterTitle: 'BKN Beauty Academy | Accredited Beauty Courses in South Africa',
   twitterDescription: 'Join BKN Beauty Academy for accredited beauty courses in South Africa. Professional training in makeup, nails, skincare & more.',
-  twitterImage: '/images/twitter-card.jpg' // Placeholder - will need actual image
+  twitterImage: '/images/gallery/photos/gallery-06.jpg'
 });
 </script>
