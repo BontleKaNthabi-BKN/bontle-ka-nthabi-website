@@ -4,16 +4,17 @@ import { validateEnquiry } from '../utils/form-validator';
 import { isDuplicateSubmission, recordSubmission } from '../utils/duplicate-checker';
 import { logger } from '../utils/logger';
 import { verifyRecaptcha } from '../utils/recaptcha';
+import { sendFormNotification, sendConfirmationEmail } from '../utils/email-service';
 import type { SubmitEnquiryRequest, SubmitResponse } from '~/app/types/form-types';
 
 export default defineEventHandler(async (event) => {
   try {
     // Get request body
     const body = await readBody(event) as SubmitEnquiryRequest;
-    
+
     // Get client IP for duplicate checking
     const clientIP = getRequestIP(event) || 'unknown';
-    
+
     // Validate request body
     if (!body) {
       return {
@@ -28,9 +29,8 @@ export default defineEventHandler(async (event) => {
       logger.warn('reCAPTCHA token is missing', {
         email: body.email
       });
-      
+
       // In development or if reCAPTCHA is not properly configured, we'll allow the submission
-      // but log it appropriately
       const config = useRuntimeConfig();
       if (!config.public.recaptchaSiteKey || process.env.NODE_ENV !== 'production') {
         logger.info('Allowing submission without reCAPTCHA in development mode', {
@@ -96,7 +96,7 @@ export default defineEventHandler(async (event) => {
         email: body.email,
         ip: clientIP
       });
-      
+
       return {
         success: false,
         message: 'Duplicate submission detected. Please wait before submitting again.',
@@ -106,65 +106,31 @@ export default defineEventHandler(async (event) => {
 
     // Generate a unique submission ID
     const submissionId = `enq_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    
+
     // Record the submission to prevent duplicates
     await recordSubmission(submissionId, body.email, clientIP);
 
-    // Process the submission with email and Google Drive integration
-    // Get email and Google Drive configurations from runtime config
+    // Process the submission with email integration
     const config = useRuntimeConfig();
-    
+
     // Prepare email configuration
     const emailConfig = {
       host: config.smtpHost,
       port: parseInt(config.smtpPort),
-      secure: config.smtpSecure === 'true', // true for 465, false for other ports
+      secure: config.smtpSecure === 'true',
       auth: {
         user: config.smtpUser,
         pass: config.smtpPass
       }
     };
 
-    // Prepare Google Drive configuration
-    const driveConfig = {
-      clientId: config.googleDriveClientId,
-      clientSecret: config.googleDriveClientSecret,
-      redirectUri: config.googleDriveRedirectUri,
-      refreshToken: config.googleDriveRefreshToken
-    };
-
-    // Store form data in Google Drive (only if credentials are provided)
-    let driveResult = { success: false, driveStored: false };
-    if (driveConfig.clientId && driveConfig.clientSecret && driveConfig.redirectUri) {
-      try {
-        driveResult = await storeFormDataInDrive(
-          driveConfig,
-          body,
-          'enquiry',
-          `enquiry_submission_${submissionId}.json`
-        );
-      } catch (error: any) {
-        logger.error('Failed to store form data in Google Drive', {
-          error: error.message,
-          submissionId,
-          email: body.email
-        });
-        driveResult = { success: false, driveStored: false };
-      }
-    } else {
-      logger.warn('Google Drive credentials not configured, skipping Google Drive storage', {
-        submissionId,
-        email: body.email
-      });
-    }
-
-    // Send notification email (only if credentials are provided)
+    // Send notification email
     let emailResult = { success: false, emailSent: false };
     if (emailConfig.auth.user && emailConfig.auth.pass) {
       try {
         emailResult = await sendFormNotification(
           emailConfig,
-          config.adminEmail || 'admin@bknbeautyacademy.co.za', // Admin email for notifications
+          config.adminEmail || 'admin@bknbeautyacademy.co.za',
           body,
           'enquiry'
         );
@@ -182,8 +148,8 @@ export default defineEventHandler(async (event) => {
         email: body.email
       });
     }
-    
-    // Send confirmation email to the user (only if credentials are provided)
+
+    // Send confirmation email to the user
     let confirmationSent = false;
     if (emailConfig.auth.user && emailConfig.auth.pass) {
       try {
@@ -191,7 +157,8 @@ export default defineEventHandler(async (event) => {
           emailConfig,
           body.email,
           submissionId,
-          'enquiry'
+          'enquiry',
+          body.fullName
         );
       } catch (error: any) {
         logger.error('Failed to send confirmation email', {
@@ -202,16 +169,15 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    // Determine overall success based on email and drive results
-    const overallSuccess = emailResult.success || driveResult.success;
+    // Determine overall success based on email results
+    const overallSuccess = emailResult.success;
 
     // Log the submission
     logger.info('Enquiry submitted successfully', {
       submissionId,
       email: body.email,
       enquiryType: body.enquiryType,
-      emailSent: emailResult.success,
-      driveStored: driveResult.success
+      emailSent: emailResult.success
     });
 
     // Return success response

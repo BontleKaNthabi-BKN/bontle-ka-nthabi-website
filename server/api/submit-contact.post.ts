@@ -3,7 +3,6 @@
 import { readMultipartFormData } from 'h3';
 import { logger } from '../utils/logger';
 import { sendFormNotification, sendConfirmationEmail } from '../utils/email-service';
-import { storeFormDataInDrive } from '../utils/google-drive';
 import { validateContact } from '../utils/form-validator';
 import { verifyRecaptcha } from '../utils/recaptcha';
 import type { SubmitResponse } from '~/app/types/form-types';
