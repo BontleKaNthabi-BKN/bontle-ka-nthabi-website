@@ -213,10 +213,8 @@ const removeFile = (index: number) => {
 
 // Emit selected files
 const emitFilesSelected = () => {
-  // In a real implementation, you would upload files and get back file IDs
-  // For now, we'll just emit the file names as placeholders
-  const fileIds = selectedFiles.value.map(file => file.name);
-  emit('files-selected', fileIds);
+  // Emit the actual File objects so parent can handle upload
+  emit('files-selected', selectedFiles.value);
 };
 
 // Clear all selected files

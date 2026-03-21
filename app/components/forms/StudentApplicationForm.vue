@@ -1,7 +1,7 @@
 <template>
   <div class="form-container">
     <h2>Student Application Form</h2>
-    <form @submit.prevent="submitApplication">
+    <form @submit.prevent="submitApplication" enctype="multipart/form-data">
       <div class="form-field">
         <label for="firstName" class="form-label">First Name *</label>
         <input
@@ -95,6 +95,7 @@
           ref="fileUploadRef"
           @files-selected="handleFilesSelected"
         />
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Max file size: 10MB per file. Accepted formats: PDF, DOC, DOCX, JPG, PNG</p>
       </div>
 
       <div class="form-field">
@@ -108,6 +109,11 @@
         <ul class="list-disc pl-5">
           <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
         </ul>
+      </div>
+
+      <!-- Success message -->
+      <div v-if="successMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mt-4">
+        {{ successMessage }}
       </div>
     </form>
   </div>
@@ -134,12 +140,14 @@ const form = reactive<FormData>({
 });
 
 const errors = ref<string[]>([]);
+const successMessage = ref<string>('');
 const isSubmitting = ref(false);
 const fileUploadRef = ref();
+const selectedFiles = ref<File[]>([]);
 
 // Handle files selected in the FileUpload component
-const handleFilesSelected = (fileIds: string[]) => {
-  form.supportingDocuments = fileIds;
+const handleFilesSelected = (files: File[]) => {
+  selectedFiles.value = files;
 };
 
 // Function to execute reCAPTCHA
@@ -184,20 +192,35 @@ const executeRecaptcha = async (action: string = 'application_form'): Promise<st
 // Submit the application form
 const submitApplication = async () => {
   errors.value = [];
+  successMessage.value = '';
   isSubmitting.value = true;
 
   try {
     // Execute reCAPTCHA
     const recaptchaToken = await executeRecaptcha('application_form');
 
-    // Validate form data
+    // Create FormData for multipart upload
+    const formDataToSend = new FormData();
+
+    // Append form fields
+    formDataToSend.append('firstName', form.firstName);
+    formDataToSend.append('lastName', form.lastName);
+    formDataToSend.append('email', form.email);
+    formDataToSend.append('phone', form.phone || '');
+    formDataToSend.append('dateOfBirth', new Date(form.dateOfBirth).toISOString());
+    formDataToSend.append('address', form.address || '');
+    formDataToSend.append('courseSelection', form.courseSelection);
+    formDataToSend.append('recaptchaToken', recaptchaToken);
+
+    // Append files if any
+    for (const file of selectedFiles.value) {
+      formDataToSend.append('attachments', file, file.name);
+    }
+
+    // Submit form with multipart data
     const response = await $fetch('/api/submit-application', {
       method: 'POST',
-      body: {
-        ...form,
-        dateOfBirth: new Date(form.dateOfBirth).toISOString(),
-        recaptchaToken
-      }
+      body: formDataToSend
     });
 
     if (response.success) {
@@ -217,9 +240,10 @@ const submitApplication = async () => {
       if (fileUploadRef.value) {
         fileUploadRef.value.clearFiles();
       }
+      selectedFiles.value = [];
 
       // Show success message
-      alert('Application submitted successfully!');
+      successMessage.value = 'Application submitted successfully!';
     } else {
       // Handle validation errors
       if (response.errors && response.errors.length > 0) {

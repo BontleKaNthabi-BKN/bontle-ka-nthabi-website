@@ -36,13 +36,15 @@ function createTransporter(config: EmailConfig) {
  * @param recipientEmail Email address of the recipient
  * @param formData Form data to include in the email
  * @param formType Type of form ('application' or 'enquiry')
+ * @param attachments Optional array of file attachments
  * @returns Promise<FormSubmissionResult> indicating success or failure
  */
 export async function sendFormNotification(
   config: EmailConfig,
   recipientEmail: string,
   formData: any,
-  formType: 'application' | 'enquiry'
+  formType: 'application' | 'enquiry',
+  attachments?: { buffer: Buffer; name: string }[]
 ): Promise<FormSubmissionResult> {
   try {
     let transporter;
@@ -53,7 +55,7 @@ export async function sendFormNotification(
         error: error.message,
         formType
       });
-      
+
       return {
         success: false,
         submissionId: '', // Will be set by caller
@@ -66,19 +68,32 @@ export async function sendFormNotification(
     // Create email template based on form type
     const template = await createEmailTemplate(formData, formType);
 
+    // Build email attachments array
+    const emailAttachments: any[] = [];
+    if (attachments && attachments.length > 0) {
+      for (const attachment of attachments) {
+        emailAttachments.push({
+          filename: attachment.name,
+          content: attachment.buffer
+        });
+      }
+    }
+
     // Send mail with defined transport object
     const info = await transporter.sendMail({
       from: `"Beauty Academy" <${config.auth.user}>`, // sender address
       to: recipientEmail, // list of receivers
       subject: template.subject,
       text: template.text,
-      html: template.html
+      html: template.html,
+      attachments: emailAttachments.length > 0 ? emailAttachments : undefined
     });
 
     logger.info(`Email sent successfully to ${recipientEmail}`, {
       messageId: info.messageId,
       formType,
-      recipient: recipientEmail
+      recipient: recipientEmail,
+      attachmentsCount: attachments?.length || 0
     });
 
     return {

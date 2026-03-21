@@ -232,11 +232,15 @@ export default defineEventHandler(async (event) => {
     let emailResult = { success: false, emailSent: false };
     if (emailConfig.auth.user && emailConfig.auth.pass) {
       try {
+        // Include file attachment in email if present
+        const attachments = fileBuffer ? [{ buffer: fileBuffer, name: fileName || 'attachment' }] : undefined;
+
         emailResult = await sendFormNotification(
           emailConfig,
           config.adminEmail || 'admin@bknbeautyacademy.co.za', // Admin email for notifications
           formData,
-          'enquiry' // Using 'enquiry' type for contact form
+          'enquiry', // Using 'enquiry' type for contact form
+          attachments
         );
       } catch (error: any) {
         logger.error('Failed to send notification email', {
