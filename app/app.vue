@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col min-h-screen bg-light-beige dark:bg-bg-dark text-text-dark dark:text-text-dark-alt">
-    <header>
+    <header class="sticky top-0 z-50">
       <Navigation />
     </header>
 
