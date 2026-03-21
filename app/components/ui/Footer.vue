@@ -29,6 +29,12 @@
             <li>
               <NuxtLink to="/gallery" class="text-base text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100">Gallery</NuxtLink>
             </li>
+            <li>
+              <NuxtLink to="/privacy-policy" class="text-base text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100">Privacy Policy</NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/terms-and-conditions" class="text-base text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100">Terms & Conditions</NuxtLink>
+            </li>
           </ul>
         </div>
 
@@ -70,9 +76,15 @@
       </div>
 
       <div class="mt-12 border-t border-gray-200 dark:border-gray-700 pt-8">
-        <p class="text-base text-gray-400 dark:text-gray-500 text-center">
-          &copy; {{ new Date().getFullYear() }} Beauty Academy. All rights reserved.
-        </p>
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-base text-gray-400 dark:text-gray-500 text-center md:text-left mb-4 md:mb-0">
+            &copy; {{ new Date().getFullYear() }} Bontle Ka Nthabi (Pty) Ltd t/a BKN Beauty Academy. All rights reserved.
+          </p>
+          <div class="flex space-x-6">
+            <NuxtLink to="/privacy-policy" class="text-base text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">Privacy Policy</NuxtLink>
+            <NuxtLink to="/terms-and-conditions" class="text-base text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">Terms & Conditions</NuxtLink>
+          </div>
+        </div>
       </div>
     </div>
   </footer>
