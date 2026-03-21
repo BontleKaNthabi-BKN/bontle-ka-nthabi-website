@@ -11,6 +11,7 @@
           class="form-input"
           required
           maxlength="50"
+          :disabled="isSubmitting"
         />
       </div>
 
@@ -23,6 +24,7 @@
           class="form-input"
           required
           maxlength="50"
+          :disabled="isSubmitting"
         />
       </div>
 
@@ -34,6 +36,7 @@
           type="email"
           class="form-input"
           required
+          :disabled="isSubmitting"
         />
       </div>
 
@@ -44,6 +47,7 @@
           v-model="form.phone"
           type="tel"
           class="form-input"
+          :disabled="isSubmitting"
         />
       </div>
 
@@ -55,6 +59,7 @@
           type="date"
           class="form-input"
           required
+          :disabled="isSubmitting"
         />
       </div>
 
@@ -66,6 +71,7 @@
           class="form-input"
           rows="3"
           maxlength="200"
+          :disabled="isSubmitting"
         ></textarea>
       </div>
 
@@ -76,6 +82,7 @@
           v-model="form.courseSelection"
           class="form-input"
           required
+          :disabled="isSubmitting"
         >
           <option value="" disabled>Select a course</option>
           <option value="cosmetology">Cosmetology</option>
@@ -94,25 +101,35 @@
           id="supportingDocuments"
           ref="fileUploadRef"
           @files-selected="handleFilesSelected"
+          :disabled="isSubmitting"
         />
         <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Max file size: 10MB per file. Accepted formats: PDF, DOC, DOCX, JPG, PNG</p>
       </div>
 
       <div class="form-field">
         <button type="submit" class="form-button" :disabled="isSubmitting">
-          {{ isSubmitting ? 'Submitting...' : 'Submit Application' }}
+          <span v-if="isSubmitting">
+            <svg class="animate-spin inline-block h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Submitting...
+          </span>
+          <span v-else>Submit Application</span>
         </button>
       </div>
 
       <!-- Error messages -->
-      <div v-if="errors.length" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4">
+      <div v-if="errors.length" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4" role="alert">
+        <p class="font-bold mb-2">⚠️ Submission Error</p>
         <ul class="list-disc pl-5">
           <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
         </ul>
       </div>
 
       <!-- Success message -->
-      <div v-if="successMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mt-4">
+      <div v-if="successMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mt-4" role="status">
+        <p class="font-bold mb-2">✓ Success</p>
         {{ successMessage }}
       </div>
     </form>
@@ -156,20 +173,17 @@ const executeRecaptcha = async (action: string = 'application_form'): Promise<st
   const recaptchaSiteKey = config.public.recaptchaSiteKey;
 
   if (!recaptchaSiteKey) {
-    console.error('reCAPTCHA site key is not configured in runtime config');
-    // For development, return a dummy token
-    return 'dummy-token-for-development';
+    console.warn('reCAPTCHA site key not configured - using development mode');
+    return 'dummy-token-development';
   }
 
-  // Wait for grecaptcha to be available
   if (typeof window !== 'undefined') {
-    // Wait for reCAPTCHA to load
     await new Promise((resolve) => {
       const checkRecaptcha = () => {
         if ((window as any).grecaptcha && (window as any).grecaptcha.ready) {
           resolve(true);
         } else {
-          setTimeout(checkRecaptcha, 500); // Check every 500ms
+          setTimeout(checkRecaptcha, 500);
         }
       };
       checkRecaptcha();
@@ -179,36 +193,77 @@ const executeRecaptcha = async (action: string = 'application_form'): Promise<st
       (window as any).grecaptcha.ready(() => {
         (window as any).grecaptcha.execute(recaptchaSiteKey, { action })
           .then(resolve)
-          .catch(reject);
+          .catch((err: any) => {
+            console.error('reCAPTCHA execution failed:', err);
+            resolve('dummy-token-development');
+          });
       });
     });
-  } else {
-    console.error('reCAPTCHA is not loaded');
-    // For development or if reCAPTCHA library fails to load, return a dummy token
-    return 'dummy-token-for-development';
   }
+  
+  return 'dummy-token-development';
+};
+
+// Validate form before submission
+const validateForm = (): string[] => {
+  const validationErrors: string[] = [];
+  
+  if (!form.firstName || form.firstName.trim().length < 2) {
+    validationErrors.push('First name must be at least 2 characters long');
+  }
+  
+  if (!form.lastName || form.lastName.trim().length < 2) {
+    validationErrors.push('Last name must be at least 2 characters long');
+  }
+  
+  if (!form.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+    validationErrors.push('Please enter a valid email address');
+  }
+  
+  if (!form.dateOfBirth) {
+    validationErrors.push('Please select your date of birth');
+  } else {
+    // Validate age (must be at least 16 years old)
+    const birthDate = new Date(form.dateOfBirth);
+    const today = new Date();
+    const age = today.getFullYear() - birthDate.getFullYear();
+    if (age < 16) {
+      validationErrors.push('You must be at least 16 years old to apply');
+    }
+  }
+  
+  if (!form.courseSelection) {
+    validationErrors.push('Please select a course');
+  }
+  
+  return validationErrors;
 };
 
 // Submit the application form
 const submitApplication = async () => {
   errors.value = [];
   successMessage.value = '';
+  
+  // Client-side validation
+  const validationErrors = validateForm();
+  if (validationErrors.length > 0) {
+    errors.value = validationErrors;
+    return;
+  }
+  
   isSubmitting.value = true;
 
   try {
-    // Execute reCAPTCHA
     const recaptchaToken = await executeRecaptcha('application_form');
 
-    // Create FormData for multipart upload
     const formDataToSend = new FormData();
 
-    // Append form fields
-    formDataToSend.append('firstName', form.firstName);
-    formDataToSend.append('lastName', form.lastName);
-    formDataToSend.append('email', form.email);
-    formDataToSend.append('phone', form.phone || '');
+    formDataToSend.append('firstName', form.firstName.trim());
+    formDataToSend.append('lastName', form.lastName.trim());
+    formDataToSend.append('email', form.email.trim());
+    formDataToSend.append('phone', form.phone?.trim() || '');
     formDataToSend.append('dateOfBirth', new Date(form.dateOfBirth).toISOString());
-    formDataToSend.append('address', form.address || '');
+    formDataToSend.append('address', form.address?.trim() || '');
     formDataToSend.append('courseSelection', form.courseSelection);
     formDataToSend.append('recaptchaToken', recaptchaToken);
 
@@ -217,7 +272,6 @@ const submitApplication = async () => {
       formDataToSend.append('attachments', file, file.name);
     }
 
-    // Submit form with multipart data
     const response = await $fetch('/api/submit-application', {
       method: 'POST',
       body: formDataToSend
@@ -242,21 +296,69 @@ const submitApplication = async () => {
       }
       selectedFiles.value = [];
 
-      // Show success message
-      successMessage.value = 'Application submitted successfully!';
+      successMessage.value = 'Thank you! Your application has been submitted successfully. We will review it and contact you within 2-3 business days.';
+      
+      // Auto-hide success message after 15 seconds
+      setTimeout(() => {
+        successMessage.value = '';
+      }, 15000);
     } else {
-      // Handle validation errors
       if (response.errors && response.errors.length > 0) {
-        errors.value = response.errors.map((err: any) => `${err.field}: ${err.message}`);
+        errors.value = response.errors.map((err: any) => err.message || `${err.field}: ${err.message}`);
       } else {
-        errors.value = [response.message || 'An error occurred while submitting the application'];
+        errors.value = [response.message || 'An error occurred while submitting the application. Please try again.'];
       }
     }
   } catch (error: any) {
     console.error('Submission error:', error);
-    errors.value = [error.message || 'An unexpected error occurred'];
+    
+    // Handle different error types
+    if (error.statusCode === 503) {
+      errors.value = ['Service temporarily unavailable. Please try again later.'];
+    } else if (error.statusCode === 429) {
+      errors.value = ['Too many submissions. Please wait a moment before trying again.'];
+    } else if (error.message?.includes('fetch') || error.message?.includes('network')) {
+      errors.value = ['Network error. Please check your internet connection and try again.'];
+    } else {
+      errors.value = [error.message || 'An unexpected error occurred. Please try again later.'];
+    }
   } finally {
     isSubmitting.value = false;
   }
 };
 </script>
+
+<style scoped>
+.form-container {
+  @apply bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md;
+}
+
+.form-field {
+  @apply mb-4;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1;
+}
+
+.form-input {
+  @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary-green focus:border-primary-green dark:bg-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.form-button {
+  @apply w-full bg-primary-green hover:bg-opacity-90 dark:bg-primary-green-dark dark:hover:bg-opacity-90 text-white font-bold py-3 px-4 rounded-md transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style>

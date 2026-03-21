@@ -1,12 +1,12 @@
 <template>
   <div class="file-upload-container">
-    <div 
-      class="upload-area" 
-      :class="{ 'drag-over': isDragOver }"
+    <div
+      class="upload-area"
+      :class="{ 'drag-over': isDragOver, 'disabled': disabled }"
       @dragover.prevent="handleDragOver"
       @dragleave="handleDragLeave"
       @drop.prevent="handleDrop"
-      @click="triggerFileSelect"
+      @click="disabled ? null : triggerFileSelect"
     >
       <input
         ref="fileInputRef"
@@ -15,20 +15,21 @@
         :accept="allowedFileTypes.join(',')"
         @change="handleFileChange"
         class="hidden"
+        :disabled="disabled"
       />
       <div class="upload-content">
-        <svg 
-          class="upload-icon" 
-          xmlns="http://www.w3.org/2000/svg" 
-          fill="none" 
-          viewBox="0 0 24 24" 
+        <svg
+          class="upload-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
           stroke="currentColor"
         >
-          <path 
-            stroke-linecap="round" 
-            stroke-linejoin="round" 
-            stroke-width="2" 
-            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" 
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
           />
         </svg>
         <p class="upload-text">
@@ -105,12 +106,14 @@ interface Props {
   maxFileSize?: number; // in MB
   allowedFileTypes?: string[]; // e.g., ['.pdf', '.jpg', '.jpeg', '.png']
   maxFiles?: number;
+  disabled?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   maxFileSize: 10, // 10MB default
   allowedFileTypes: () => ['.pdf', '.jpg', '.jpeg', '.png'],
-  maxFiles: 5
+  maxFiles: 5,
+  disabled: false
 });
 
 // Define emits
@@ -243,6 +246,10 @@ defineExpose({
   @apply border-primary-green bg-green-50;
 }
 
+.upload-area.disabled {
+  @apply border-gray-200 bg-gray-50 cursor-not-allowed opacity-60;
+}
+
 .upload-content {
   @apply flex flex-col items-center;
 }
@@ -266,7 +273,4 @@ defineExpose({
 .hidden {
   display: none;
 }
-
-/* Remove all @apply statements that cause circular dependencies */
-/* These are already handled by Tailwind classes in the template */
 </style>
