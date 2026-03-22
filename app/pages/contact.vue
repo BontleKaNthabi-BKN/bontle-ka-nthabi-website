@@ -113,17 +113,75 @@
       </div>
     </section>
 
-    <!-- Map Section (Placeholder) -->
+    <!-- Map Section -->
     <section class="py-16 bg-white dark:bg-gray-800">
       <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-6xl mx-auto">
           <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6 text-center">Visit Us</h2>
-          <div class="bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl w-full h-80 flex items-center justify-center">
-            <p class="text-gray-500 dark:text-gray-300">Map Location - 121 Kerk St, Rustenburg, 2999, South Africa</p>
-          </div>
-          <p class="text-center text-gray-600 dark:text-gray-300 mt-4">
-            We're conveniently located in 121 Kerk St, Rustenburg, 2999, South Africa. Contact us for directions or specific address information.
+          <p class="text-center text-gray-600 dark:text-gray-300 mb-8">
+            We're conveniently located in the heart of Rustenburg. Find us at 121 Kerk Street.
           </p>
+          
+          <!-- Google Maps Embed (No API Key Required) -->
+          <div class="relative w-full h-96 rounded-xl overflow-hidden shadow-lg border-2 border-gray-200 dark:border-gray-700">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3599.966711287917!2d27.2423!3d-25.6697!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ebf1f8e8e8e8e8d%3A0x1234567890abcdef!2s121%20Kerk%20St%2C%20Rustenburg%2C%202999%2C%20South%20Africa!5e0!3m2!1sen!2sza!4v1234567890"
+              width="100%"
+              height="100%"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="BKN Beauty Academy Location Map"
+              class="absolute inset-0 w-full h-full"
+            ></iframe>
+          </div>
+          
+          <!-- Location Details -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+            <div class="text-center p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-primary-green mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">Address</h3>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">121 Kerk St<br/>Rustenburg, 2999<br/>South Africa</p>
+            </div>
+            
+            <div class="text-center p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-primary-green mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">Business Hours</h3>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">Mon - Fri: 9AM - 5PM<br/>Saturday: By Appointment<br/>Sunday: Closed</p>
+            </div>
+            
+            <div class="text-center p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-primary-green mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.244-4.243a8 8 0 11-11.314 0z" />
+              </svg>
+              <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">Contact</h3>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">
+                <a href="tel:+27638429997" class="hover:text-primary-green">+27 63 842 9997</a><br/>
+                <a href="mailto:nthabi@bknbeautyacademy.co.za" class="hover:text-primary-green">nthabi@bknbeautyacademy.co.za</a>
+              </p>
+            </div>
+          </div>
+          
+          <!-- Get Directions Button -->
+          <div class="text-center mt-8">
+            <a
+              href="https://www.google.com/maps/dir/?api=1&destination=121+Kerk+St+Rustenburg+2999+South+Africa"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center bg-primary-green hover:bg-opacity-90 dark:bg-primary-green-dark dark:hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+              </svg>
+              Get Directions
+            </a>
+          </div>
         </div>
       </div>
     </section>
