@@ -119,7 +119,7 @@
         <div class="max-w-4xl mx-auto">
           <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6 text-center">Visit Us</h2>
           <div class="bg-gray-200 dark:bg-gray-600 border-2 border-dashed rounded-xl w-full h-80 flex items-center justify-center">
-            <p class="text-gray-500 dark:text-gray-300">Map Location - Mbombela, South Africa</p>
+            <p class="text-gray-500 dark:text-gray-300">Map Location - 121 Kerk St, Rustenburg, 2999, South Africa</p>
           </div>
           <p class="text-center text-gray-600 dark:text-gray-300 mt-4">
             We're conveniently located in 121 Kerk St, Rustenburg, 2999, South Africa. Contact us for directions or specific address information.
