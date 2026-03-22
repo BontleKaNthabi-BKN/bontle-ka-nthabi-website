@@ -32,7 +32,7 @@
                     <h3 class="text-lg font-medium text-gray-900">Address</h3>
                     <p class="text-gray-600 mt-1">
                       BKN Beauty Academy<br />
-                      Mbombela, Mpumalanga<br />
+                      121 Kerk St, Rustenburg, 2999<br />
                       South Africa<br />
                       (Specific address available upon request)
                     </p>
@@ -107,7 +107,7 @@
             <div>
               <h2 class="text-3xl font-bold text-gray-800 mb-8">Campus Location</h2>
               <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-96 flex items-center justify-center">
-                <p class="text-gray-500">Interactive Map - Mbombela, South Africa</p>
+                <p class="text-gray-500">Interactive Map - 121 Kerk St, Rustenburg, 2999, South Africa</p>
               </div>
               
               <div class="mt-8">
@@ -135,7 +135,7 @@
 
           <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div class="text-center p-4 bg-gray-50 rounded-lg">
-              <h3 class="font-medium text-gray-800">Mbombela</h3>
+              <h3 class="font-medium text-gray-800">Rustenburg</h3>
             </div>
             <div class="text-center p-4 bg-gray-50 rounded-lg">
               <h3 class="font-medium text-gray-800">White River</h3>
