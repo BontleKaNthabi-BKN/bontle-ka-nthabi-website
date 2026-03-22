@@ -68,7 +68,7 @@
                   <div class="ml-4">
                     <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Location</h3>
                     <p class="text-gray-600 dark:text-gray-300 mt-1">
-                      Mbombela, South Africa<br />
+                      121 Kerk St, Rustenburg, 2999, South Africa<br />
                       (Specific address available upon request)
                     </p>
                   </div>
@@ -123,7 +123,7 @@
             <p class="text-gray-500 dark:text-gray-300">Map Location - Mbombela, South Africa</p>
           </div>
           <p class="text-center text-gray-600 dark:text-gray-300 mt-4">
-            We're conveniently located in Mbombela. Contact us for directions or specific address information.
+            We're conveniently located in 121 Kerk St, Rustenburg, 2999, South Africa. Contact us for directions or specific address information.
           </p>
         </div>
       </div>
@@ -202,13 +202,13 @@ import { setCustomSeoMeta } from '~/composables/useSeoMeta';
 
 // Set SEO meta for contact page
 setCustomSeoMeta({
-  title: 'Contact BKN Beauty Academy | Beauty School in South Africa',
-  description: 'Contact BKN Beauty Academy in South Africa. Reach out for inquiries about our accredited beauty courses, admissions, and career opportunities.',
+  title: 'Contact BKN Beauty Academy | Beauty School in Rustenburg, North West, South Africa',
+  description: 'Contact BKN Beauty Academy in Rustenburg, North West, South Africa. Reach out for inquiries about our accredited beauty courses, admissions, and career opportunities.',
   keywords: 'contact beauty academy, beauty school south africa, beauty course inquiries, beauty academy contact, beauty school contact information',
-  ogTitle: 'Contact BKN Beauty Academy | Beauty School in South Africa',
+  ogTitle: 'Contact BKN Beauty Academy | Beauty School in Rustenburg, North West, South Africa',
   ogDescription: 'Contact BKN Beauty Academy in South Africa. Reach out for inquiries about our accredited beauty courses, admissions, and career opportunities.',
   ogImage: '/images/gallery/photos/gallery-09.jpg',
-  twitterTitle: 'Contact BKN Beauty Academy | Beauty School in South Africa',
+  twitterTitle: 'Contact BKN Beauty Academy | Beauty School in Rustenburg, North West, South Africa',
   twitterDescription: 'Contact BKN Beauty Academy in South Africa. Reach out for inquiries about our accredited beauty courses, admissions, and career opportunities.',
   twitterImage: '/images/gallery/photos/gallery-10.jpg'
 });
