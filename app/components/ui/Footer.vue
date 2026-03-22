@@ -69,7 +69,7 @@
             </li>
             <li class="text-base text-gray-500 dark:text-gray-300">
               <span class="block">Location:</span>
-              <span>Mbombela, South Africa</span>
+              <span>121 Kerk St, Rustenburg, 2999, South Africa</span>
             </li>
           </ul>
         </div>
