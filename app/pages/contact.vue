@@ -69,7 +69,6 @@
                     <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Location</h3>
                     <p class="text-gray-600 dark:text-gray-300 mt-1">
                       121 Kerk St, Rustenburg, 2999, South Africa<br />
-                      (Specific address available upon request)
                     </p>
                   </div>
                 </div>
